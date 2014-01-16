@@ -1,6 +1,13 @@
 {
-    "name": "AdSpruce Simple Redis Counter",
+    "name": "adspruce/rediscounter",
+    "type": "library",
     "description": "AdSpruce Key Incrementer for Predis",
+    "homepage": "http://github.com/AdSpruce/rediscounter",
+    "authors": [
+        {
+            "name": "Craig Patrick"
+        }
+    ],
     "require": {
         "predis/predis": "0.8.*"
     },
