@@ -1,0 +1,14 @@
+<?php
+/**
+ * User: craigpatrick
+ * Date: 14/01/2014
+ */
+
+return array(
+    'redis' => array(
+        'host'               => '172.0.0.1',
+        'port'               => '6379',
+        'connection_timeout' => 30,
+        'database'           => 0
+    )
+);

@@ -1,0 +1,10 @@
+{
+    "name": "Simple Redis Counter",
+    "description": "AdSpruce Key Incrementer",
+    "require": {
+        "predis/predis": "0.8.*"
+    },
+    "autoload": {
+        "psr-0": { "": "src" }
+    }
+}
