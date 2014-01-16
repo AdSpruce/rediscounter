@@ -1,6 +1,6 @@
 {
-    "name": "Simple Redis Counter",
-    "description": "AdSpruce Key Incrementer",
+    "name": "AdSpruce Simple Redis Counter",
+    "description": "AdSpruce Key Incrementer for Predis",
     "require": {
         "predis/predis": "0.8.*"
     },
