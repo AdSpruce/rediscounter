@@ -39,6 +39,7 @@ class RedisCount
         $this->settings = $this->getSettings();
         $this->redis = $this->setConnection($this->getSettings());
         $this->pipeLine = $this->setRedisQueue($this->redis->pipeline());
+        $this->connectToServer();
     }
 
     /**
@@ -46,7 +47,7 @@ class RedisCount
      */
     public function getSettings()
     {
-        if(isset($this->settings)) {
+        if (isset($this->settings)) {
             return $this->settings;
         }
         $settings = require_once(__DIR__ . '/../../../config/rediscount.local.php');
@@ -97,15 +98,40 @@ class RedisCount
 
     /**
      * @param null|int $database
+     *
      * @codeCoverageIgnore
      */
     public function selectDatabase($database = null)
     {
-        if($database === null) {
+        if ($database === null) {
             // Select default:
             $this->redis->select($this->settings['database']);
         } else {
             $this->redis->select($database);
+        }
+    }
+
+    /**
+     * Connect to Redis Server
+     *
+     * @codeCoverageIgnore
+     */
+    public function connectToServer()
+    {
+        if ($this->redis->isConnected() === false) {
+            $this->redis->connect();
+        }
+    }
+
+    /**
+     * Disconnect from Redis Server
+     *
+     * @codeCoverageIgnore
+     */
+    public function disconnectFromServer()
+    {
+        if ($this->redis->isConnected() === true) {
+            $this->redis->disconnect();
         }
     }
 
@@ -132,11 +158,13 @@ class RedisCount
      */
     public function writeToRedis()
     {
-        if (!isset($this->pipeLine)){
+        if (!isset($this->pipeLine)) {
             throw new \Exception('No Redis Pipeline Set');
         }
 
         $results = $this->pipeLine->execute();
+
+        $this->disconnectFromServer();
 
         return $results;
     }
